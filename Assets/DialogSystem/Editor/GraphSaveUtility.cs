@@ -43,7 +43,7 @@ namespace DialogueSystem
                 dialogContainerCenter.NodeLinks.Add(new NodeLinkData
                 {
                     BaseNodeGUID = output.GUID,
-                    PortName = connectedPorts[i].output.name,
+                    PortName = connectedPorts[i].output.portName,
                     TargetNodeGUID = input.GUID
                 });
             }

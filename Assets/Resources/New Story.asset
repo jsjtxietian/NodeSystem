@@ -13,10 +13,22 @@ MonoBehaviour:
   m_Name: New Story
   m_EditorClassIdentifier: 
   NodeLinks:
-  - BaseNodeGUID: f2b3c384-7018-420e-89d5-d893b8ce69e2
-    PortName: 
-    TargetNodeGUID: ba8feb71-883b-42e6-9506-502c7b5714e0
+  - BaseNodeGUID: ae24b833-a88b-4062-905a-08cb12f4ccd4
+    PortName: Next
+    TargetNodeGUID: 94e9360a-4d54-4f34-80d6-52b366e681cc
+  - BaseNodeGUID: 94e9360a-4d54-4f34-80d6-52b366e681cc
+    PortName: 43423
+    TargetNodeGUID: f1ea7d58-8d14-4752-8240-ae79c2fb9883
+  - BaseNodeGUID: 94e9360a-4d54-4f34-80d6-52b366e681cc
+    PortName: rwer
+    TargetNodeGUID: 22312230-d566-4862-9867-e4e6e2bab069
   DialogNodeData:
-  - NodeGUID: ba8feb71-883b-42e6-9506-502c7b5714e0
+  - NodeGUID: f1ea7d58-8d14-4752-8240-ae79c2fb9883
     DialogueText: New Node
-    Position: {x: 260, y: 146}
+    Position: {x: 591, y: 243}
+  - NodeGUID: 94e9360a-4d54-4f34-80d6-52b366e681cc
+    DialogueText: New Node
+    Position: {x: 274, y: 245}
+  - NodeGUID: 22312230-d566-4862-9867-e4e6e2bab069
+    DialogueText: New Node
+    Position: {x: 554, y: 366}
