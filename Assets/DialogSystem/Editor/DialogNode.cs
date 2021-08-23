@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace DialogueSystem.Editor
+namespace DialogueSystem
 {
-    public class DialogueNode : Node
+    public class DialogNode : Node
     {
         public string Text;
         public string GUID;
