@@ -8,7 +8,7 @@ namespace BlueprintSystem
     public class BlueprintNodeData
     {
         public string NodeGUID;
-        public string DialogueText;
+        public string Content;
         public Vector2 Position;
     }
 

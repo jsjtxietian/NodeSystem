@@ -53,7 +53,7 @@ namespace BlueprintSystem
                 SerializeDataContainerCenter.BlueprintNodeData.Add(new BlueprintNodeData
                 {
                     NodeGUID = node.GUID,
-                    DialogueText = node.Text,
+                    Content = node.Text,
                     Position = node.GetPosition().position
                 });
             }
@@ -108,7 +108,7 @@ namespace BlueprintSystem
         {
             foreach (var perNode in _SerializeDataContainer.BlueprintNodeData)
             {
-                var tempNode = _graphView.CreateDialogNode(perNode.DialogueText, Vector2.zero);
+                var tempNode = _graphView.CreateDialogNode(perNode.Content, Vector2.zero);
                 tempNode.GUID = perNode.NodeGUID;
                 _graphView.AddElement(tempNode);
 

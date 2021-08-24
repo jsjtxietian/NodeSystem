@@ -16,37 +16,37 @@ MonoBehaviour:
   - BaseNodeGUID: 51b05820-3628-4ca8-994e-b0b2cdd18e48
     PortName: Next
     TargetNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
-  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
-    PortName: Option 1
-    TargetNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
-  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
-    PortName: Option 2
-    TargetNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
-  - BaseNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
-    PortName: Option 1
-    TargetNodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
   - BaseNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
     PortName: Option 2
     TargetNodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
   - BaseNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
     PortName: Option 1
     TargetNodeGUID: 06cc0551-49d6-4cc9-baca-750ab9e7dd9d
+  - BaseNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
+    PortName: Option 1
+    TargetNodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
+  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    PortName: Option A
+    TargetNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
+  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    PortName: Option 2
+    TargetNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
   BlueprintNodeData:
-  - NodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
-    DialogueText: New Node
-    Position: {x: 263, y: 244}
   - NodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
-    DialogueText: New Node
+    Content: 
     Position: {x: 578, y: 59}
   - NodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
-    DialogueText: New Node
+    Content: 
     Position: {x: 524, y: 431}
   - NodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
-    DialogueText: New Node
+    Content: 
     Position: {x: 841, y: 315}
   - NodeGUID: 06cc0551-49d6-4cc9-baca-750ab9e7dd9d
-    DialogueText: Blueprint Node
+    Content: 
     Position: {x: 865, y: 54}
+  - NodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    Content: DAMN A SSS
+    Position: {x: 263, y: 244}
   ExposedProperties:
-  - PropertyName: ee
-    PropertyValue: e
+  - PropertyName: A
+    PropertyValue: ttt
