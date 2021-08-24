@@ -8,21 +8,21 @@ using System.Text;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using DialogueSystem;
+using BlueprintSystem;
 using UnityEngine.UIElements;
 
-namespace DialogueSystem
+namespace BlueprintSystem
 {
-    public class GraphSaveUtility
+    public class SaveUtility
     {
         private List<Edge> Edges => _graphView.edges.ToList();
-        private List<DialogNode> Nodes => _graphView.nodes.ToList().Cast<DialogNode>().ToList();
-        private DialogGraphView _graphView;
-        private DialogContainer _dialogContainer;
+        private List<BlueprintNode> Nodes => _graphView.nodes.ToList().Cast<BlueprintNode>().ToList();
+        private BlueprintGraphView _graphView;
+        private SerializeDataContainer _SerializeDataContainer;
 
-        public static GraphSaveUtility GetInstance(DialogGraphView graphView)
+        public static SaveUtility GetInstance(BlueprintGraphView graphView)
         {
-            return new GraphSaveUtility
+            return new SaveUtility
             {
                 _graphView = graphView
             };
@@ -33,14 +33,14 @@ namespace DialogueSystem
             if (!Edges.Any())
                 return;
 
-            var dialogContainerCenter = ScriptableObject.CreateInstance<DialogContainer>();
+            var SerializeDataContainerCenter = ScriptableObject.CreateInstance<SerializeDataContainer>();
             var connectedPorts = Edges.Where(x => x.input.node != null).ToArray();
             for (int i = 0; i < connectedPorts.Length; i++)
             {
-                DialogNode output = connectedPorts[i].output.node as DialogNode;
-                DialogNode input = connectedPorts[i].input.node as DialogNode;
+                BlueprintNode output = connectedPorts[i].output.node as BlueprintNode;
+                BlueprintNode input = connectedPorts[i].input.node as BlueprintNode;
 
-                dialogContainerCenter.NodeLinks.Add(new NodeLinkData
+                SerializeDataContainerCenter.NodeLinks.Add(new NodeLinkData
                 {
                     BaseNodeGUID = output.GUID,
                     PortName = connectedPorts[i].output.portName,
@@ -50,7 +50,7 @@ namespace DialogueSystem
 
             foreach (var node in Nodes.Where(node => !node.EntyPoint))
             {
-                dialogContainerCenter.DialogNodeData.Add(new DialogNodeData
+                SerializeDataContainerCenter.BlueprintNodeData.Add(new BlueprintNodeData
                 {
                     NodeGUID = node.GUID,
                     DialogueText = node.Text,
@@ -58,20 +58,20 @@ namespace DialogueSystem
                 });
             }
 
-            SaveExposedProperties(dialogContainerCenter);
+            SaveExposedProperties(SerializeDataContainerCenter);
 
             if (!AssetDatabase.IsValidFolder("Assets/Resources"))
                 AssetDatabase.CreateFolder("Assets", "Resources");
 
-            AssetDatabase.CreateAsset(dialogContainerCenter, $"Assets/Resources/{fileName}.asset");
+            AssetDatabase.CreateAsset(SerializeDataContainerCenter, $"Assets/Resources/{fileName}.asset");
             AssetDatabase.SaveAssets();
 
         }
 
         public void LoadGraph(string fileName)
         {
-            _dialogContainer = Resources.Load<DialogContainer>(fileName);
-            if (_dialogContainer == null)
+            _SerializeDataContainer = Resources.Load<SerializeDataContainer>(fileName);
+            if (_SerializeDataContainer == null)
             {
                 EditorUtility.DisplayDialog("File Not Found", "Target Data does not exist!", "OK");
                 return;
@@ -86,7 +86,7 @@ namespace DialogueSystem
         private void AddExposedProperties()
         {
             _graphView.ClearBlackBoardAndExposedProperties();
-            foreach (var exposedProperty in _dialogContainer.ExposedProperties)
+            foreach (var exposedProperty in _SerializeDataContainer.ExposedProperties)
             {
                 _graphView.AddPropertyToBlackBoard(exposedProperty);
             }
@@ -94,7 +94,7 @@ namespace DialogueSystem
 
         private void ClearGraph()
         {
-            Nodes.Find(x => x.EntyPoint).GUID = _dialogContainer.NodeLinks[0].BaseNodeGUID;
+            Nodes.Find(x => x.EntyPoint).GUID = _SerializeDataContainer.NodeLinks[0].BaseNodeGUID;
             foreach (var perNode in Nodes)
             {
                 if (perNode.EntyPoint) continue;
@@ -106,13 +106,13 @@ namespace DialogueSystem
 
         private void CreateNodes()
         {
-            foreach (var perNode in _dialogContainer.DialogNodeData)
+            foreach (var perNode in _SerializeDataContainer.BlueprintNodeData)
             {
                 var tempNode = _graphView.CreateDialogNode(perNode.DialogueText, Vector2.zero);
                 tempNode.GUID = perNode.NodeGUID;
                 _graphView.AddElement(tempNode);
 
-                var nodePorts = _dialogContainer.NodeLinks.Where(x => x.BaseNodeGUID == perNode.NodeGUID).ToList();
+                var nodePorts = _SerializeDataContainer.NodeLinks.Where(x => x.BaseNodeGUID == perNode.NodeGUID).ToList();
                 nodePorts.ForEach(x => _graphView.AddChoicePort(tempNode, x.PortName));
             }
         }
@@ -123,7 +123,7 @@ namespace DialogueSystem
             for (var i = 0; i < Nodes.Count; i++)
             {
                 var k = i; //Prevent access to modified closure
-                var connections = _dialogContainer.NodeLinks.Where(x => x.BaseNodeGUID == Nodes[k].GUID).ToList();
+                var connections = _SerializeDataContainer.NodeLinks.Where(x => x.BaseNodeGUID == Nodes[k].GUID).ToList();
                 for (var j = 0; j < connections.Count(); j++)
                 {
                     var targetNodeGUID = connections[j].TargetNodeGUID;
@@ -131,7 +131,7 @@ namespace DialogueSystem
                     LinkNodesTogether(Nodes[i].outputContainer[j].Q<Port>(), (Port)targetNode.inputContainer[0]);
 
                     targetNode.SetPosition(new Rect(
-                        _dialogContainer.DialogNodeData.First(x => x.NodeGUID == targetNodeGUID).Position,
+                        _SerializeDataContainer.BlueprintNodeData.First(x => x.NodeGUID == targetNodeGUID).Position,
                         _graphView.defaultNodeSize));
                 }
             }
@@ -149,10 +149,10 @@ namespace DialogueSystem
             _graphView.Add(tempEdge);
         }
 
-        private void SaveExposedProperties(DialogContainer dialogContainer)
+        private void SaveExposedProperties(SerializeDataContainer SerializeDataContainer)
         {
-            dialogContainer.ExposedProperties.Clear();
-            dialogContainer.ExposedProperties.AddRange(_graphView.ExposedProperties);
+            SerializeDataContainer.ExposedProperties.Clear();
+            SerializeDataContainer.ExposedProperties.AddRange(_graphView.ExposedProperties);
         }
 
     }

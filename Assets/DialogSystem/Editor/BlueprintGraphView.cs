@@ -9,17 +9,17 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
-namespace DialogueSystem
+namespace BlueprintSystem
 {
-    public class DialogGraphView : GraphView
+    public class BlueprintGraphView : GraphView
     {
         public readonly Vector2 defaultNodeSize = new Vector2(150, 200);
         public Blackboard Blackboard = new Blackboard();
         public List<ExposedProperty> ExposedProperties { get; private set; } = new List<ExposedProperty>();
         private NodeSearchWindow _searchWindow;
-        public DialogGraphView(DialogGraph editorWindow)
+        public BlueprintGraphView(BlueprintGraph editorWindow)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("DialogGraph"));
+            styleSheets.Add(Resources.Load<StyleSheet>("BlueprintGraph"));
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale * 2);
 
             this.AddManipulator(new ContentDragger());
@@ -34,7 +34,7 @@ namespace DialogueSystem
             AddSearchWindow(editorWindow);
         }
 
-        private void AddSearchWindow(DialogGraph editorWindow)
+        private void AddSearchWindow(BlueprintGraph editorWindow)
         {
             _searchWindow = ScriptableObject.CreateInstance<NodeSearchWindow>();
             _searchWindow.Configure(editorWindow, this);
@@ -81,9 +81,9 @@ namespace DialogueSystem
             Blackboard.Add(container);
         }
 
-        public DialogNode CreateDialogNode(string nodeName, Vector2 position)
+        public BlueprintNode CreateDialogNode(string nodeName, Vector2 position)
         {
-            var node = new DialogNode
+            var node = new BlueprintNode
             {
                 title = nodeName,
                 Text = nodeName,
@@ -121,7 +121,7 @@ namespace DialogueSystem
             return node;
         }
 
-        public void AddChoicePort(DialogNode node, string portName = null)
+        public void AddChoicePort(BlueprintNode node, string portName = null)
         {
             var port = GeneratePort(node, Direction.Output);
             var portLabel = port.contentContainer.Q<Label>("type");
@@ -187,7 +187,7 @@ namespace DialogueSystem
             return compatiblePorts;
         }
 
-        private Port GeneratePort(DialogNode node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Single)
+        private Port GeneratePort(BlueprintNode node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Single)
         {
             return node.InstantiatePort(
                 Orientation.Horizontal,
@@ -197,9 +197,9 @@ namespace DialogueSystem
             );
         }
 
-        private DialogNode GenerateEntryPointNode()
+        private BlueprintNode GenerateEntryPointNode()
         {
-            var node = new DialogNode
+            var node = new BlueprintNode
             {
                 title = "START",
                 Text = "GO",

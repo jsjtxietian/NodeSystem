@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fac1b3bee04564b8b41d25f4da44b0, type: 3}
+  m_Name: New Blueprint
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: 51b05820-3628-4ca8-994e-b0b2cdd18e48
+    PortName: Next
+    TargetNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    PortName: Option 1
+    TargetNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
+  - BaseNodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    PortName: Option 2
+    TargetNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
+  - BaseNodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
+    PortName: Option 1
+    TargetNodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
+  - BaseNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
+    PortName: Option 2
+    TargetNodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
+  - BaseNodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
+    PortName: Option 1
+    TargetNodeGUID: 06cc0551-49d6-4cc9-baca-750ab9e7dd9d
+  BlueprintNodeData:
+  - NodeGUID: b64be261-240d-4b32-a7bb-4b6b0f3b772d
+    DialogueText: New Node
+    Position: {x: 263, y: 244}
+  - NodeGUID: 771d2b61-806b-432f-8cb7-f9fe5b5a8c75
+    DialogueText: New Node
+    Position: {x: 578, y: 59}
+  - NodeGUID: 04603b68-f459-4f3e-832b-1ddd4608566e
+    DialogueText: New Node
+    Position: {x: 524, y: 431}
+  - NodeGUID: c3cb7afc-54bb-412d-82f1-e477b427a3eb
+    DialogueText: New Node
+    Position: {x: 841, y: 315}
+  - NodeGUID: 06cc0551-49d6-4cc9-baca-750ab9e7dd9d
+    DialogueText: Blueprint Node
+    Position: {x: 865, y: 54}
+  ExposedProperties:
+  - PropertyName: ee
+    PropertyValue: e

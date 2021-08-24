@@ -6,16 +6,16 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace DialogueSystem
+namespace BlueprintSystem
 {
     public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
     {
         private EditorWindow _window;
-        private DialogGraphView _graphView;
+        private BlueprintGraphView _graphView;
 
         private Texture2D _indentationIcon;
 
-        public void Configure(EditorWindow window, DialogGraphView graphView)
+        public void Configure(EditorWindow window, BlueprintGraphView graphView)
         {
             _window = window;
             _graphView = graphView;
@@ -31,10 +31,10 @@ namespace DialogueSystem
             var tree = new List<SearchTreeEntry>
             {
                 new SearchTreeGroupEntry(new GUIContent("Create Node"), 0),
-                new SearchTreeGroupEntry(new GUIContent("Dialogue"), 1),
-                new SearchTreeEntry(new GUIContent("Dialogue Node", _indentationIcon))
+                new SearchTreeGroupEntry(new GUIContent("Blueprint Node"), 1),
+                new SearchTreeEntry(new GUIContent("Blueprint Node", _indentationIcon))
                 {
-                    level = 2, userData = new DialogNode()
+                    level = 2, userData = new BlueprintNode()
                 },
             };
 
@@ -49,8 +49,8 @@ namespace DialogueSystem
             var graphMousePosition = _graphView.contentViewContainer.WorldToLocal(mousePosition);
             switch (SearchTreeEntry.userData)
             {
-                case DialogNode dialogueNode:
-                    _graphView.CreateNode("Dialogue Node", graphMousePosition);
+                case BlueprintNode dialogueNode:
+                    _graphView.CreateNode("Blueprint Node", graphMousePosition);
                     return true;
             }
             return false;

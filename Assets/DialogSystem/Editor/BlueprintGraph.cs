@@ -9,18 +9,18 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-namespace DialogueSystem
+namespace BlueprintSystem
 {
-    public class DialogGraph : EditorWindow
+    public class BlueprintGraph : EditorWindow
     {
-        private DialogGraphView _graphView;
-        private string _fileName = "New Story";
+        private BlueprintGraphView _graphView;
+        private string _fileName = "New Blueprint";
 
-        [MenuItem("Graph/Dialog Graph")]
-        public static void OpenDialogGraphWindow()
+        [MenuItem("Blueprint/New Blueprint")]
+        public static void OpenBlueprintGraphWindow()
         {
-            var window = GetWindow<DialogGraph>();
-            window.titleContent = new GUIContent("Dialog Graph");
+            var window = GetWindow<BlueprintGraph>();
+            window.titleContent = new GUIContent("Blueprint");
         }
 
         private void OnEnable()
@@ -87,7 +87,7 @@ namespace DialogueSystem
         }
         private void ConstrcutGraph()
         {
-            _graphView = new DialogGraphView(this)
+            _graphView = new BlueprintGraphView(this)
             {
                 name = "Dialog Graph"
             };
@@ -107,7 +107,7 @@ namespace DialogueSystem
             {
                 EditorUtility.DisplayDialog("Invalid file name!", "Please Enter a valid file name", "OK");
             }
-            var graphSaveUtility = GraphSaveUtility.GetInstance(_graphView);
+            var graphSaveUtility = SaveUtility.GetInstance(_graphView);
             if (save)
             {
                 graphSaveUtility.SaveGraph(_fileName);
