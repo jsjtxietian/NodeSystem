@@ -28,6 +28,35 @@ namespace DialogueSystem
             ConstrcutGraph();
             GenerateToolbar();
             GenerateMiniMap();
+            GenerateBlackBoard();
+
+        }
+
+        private void GenerateBlackBoard()
+        {
+            var blackboard = new Blackboard(_graphView);
+            blackboard.Add(new BlackboardSection { title = "Exposed Variables" });
+            blackboard.addItemRequested = _blackboard =>
+            {
+                _graphView.AddPropertyToBlackBoard(ExposedProperty.CreateInstance(), false);
+            };
+            blackboard.editTextRequested = (_blackboard, element, newValue) =>
+            {
+                var oldPropertyName = ((BlackboardField)element).text;
+                if (_graphView.ExposedProperties.Any(x => x.PropertyName == newValue))
+                {
+                    EditorUtility.DisplayDialog("Error", "This property name already exists, please chose another one.",
+                        "OK");
+                    return;
+                }
+
+                var targetIndex = _graphView.ExposedProperties.FindIndex(x => x.PropertyName == oldPropertyName);
+                _graphView.ExposedProperties[targetIndex].PropertyName = newValue;
+                ((BlackboardField)element).text = newValue;
+            };
+            blackboard.SetPosition(new Rect(10, 30, 200, 300));
+            _graphView.Add(blackboard);
+            _graphView.Blackboard = blackboard;
         }
 
         private void GenerateMiniMap()
@@ -58,7 +87,7 @@ namespace DialogueSystem
         }
         private void ConstrcutGraph()
         {
-            _graphView = new DialogGraphView
+            _graphView = new DialogGraphView(this)
             {
                 name = "Dialog Graph"
             };

@@ -9,7 +9,7 @@ namespace DialogueSystem
     {
         public List<NodeLinkData> NodeLinks = new List<NodeLinkData>();
         public List<DialogNodeData> DialogNodeData = new List<DialogNodeData>();
-        // public List<ExposedProperty> ExposedProperties = new List<ExposedProperty>();
+        public List<ExposedProperty> ExposedProperties = new List<ExposedProperty>();
         // public List<CommentBlockData> CommentBlockData = new List<CommentBlockData>();
     }
 }

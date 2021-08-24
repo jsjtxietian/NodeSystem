@@ -22,6 +22,15 @@ MonoBehaviour:
   - BaseNodeGUID: 94e9360a-4d54-4f34-80d6-52b366e681cc
     PortName: rwer
     TargetNodeGUID: 22312230-d566-4862-9867-e4e6e2bab069
+  - BaseNodeGUID: 22312230-d566-4862-9867-e4e6e2bab069
+    PortName: Option 1
+    TargetNodeGUID: cb8a605d-7b48-4e6c-a495-e27a71735931
+  - BaseNodeGUID: f1ea7d58-8d14-4752-8240-ae79c2fb9883
+    PortName: Option 1
+    TargetNodeGUID: cb8a605d-7b48-4e6c-a495-e27a71735931
+  - BaseNodeGUID: f1ea7d58-8d14-4752-8240-ae79c2fb9883
+    PortName: Option 2
+    TargetNodeGUID: f064b620-b3c8-418b-9bac-c4393ff343bf
   DialogNodeData:
   - NodeGUID: f1ea7d58-8d14-4752-8240-ae79c2fb9883
     DialogueText: New Node
@@ -31,4 +40,15 @@ MonoBehaviour:
     Position: {x: 274, y: 245}
   - NodeGUID: 22312230-d566-4862-9867-e4e6e2bab069
     DialogueText: New Node
-    Position: {x: 554, y: 366}
+    Position: {x: 505, y: 444}
+  - NodeGUID: cb8a605d-7b48-4e6c-a495-e27a71735931
+    DialogueText: Dialogue Node
+    Position: {x: 909, y: 591}
+  - NodeGUID: f064b620-b3c8-418b-9bac-c4393ff343bf
+    DialogueText: New Node
+    Position: {x: 944, y: 230}
+  ExposedProperties:
+  - PropertyName: DAMN
+    PropertyValue: FUCK you
+  - PropertyName: SHIT
+    PropertyValue: BAMN

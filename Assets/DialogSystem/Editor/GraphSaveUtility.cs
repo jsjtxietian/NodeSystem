@@ -58,6 +58,8 @@ namespace DialogueSystem
                 });
             }
 
+            SaveExposedProperties(dialogContainerCenter);
+
             if (!AssetDatabase.IsValidFolder("Assets/Resources"))
                 AssetDatabase.CreateFolder("Assets", "Resources");
 
@@ -78,6 +80,16 @@ namespace DialogueSystem
             ClearGraph();
             CreateNodes();
             ConnectNodes();
+            AddExposedProperties();
+        }
+
+        private void AddExposedProperties()
+        {
+            _graphView.ClearBlackBoardAndExposedProperties();
+            foreach (var exposedProperty in _dialogContainer.ExposedProperties)
+            {
+                _graphView.AddPropertyToBlackBoard(exposedProperty);
+            }
         }
 
         private void ClearGraph()
@@ -135,6 +147,12 @@ namespace DialogueSystem
             tempEdge?.input.Connect(tempEdge);
             tempEdge?.output.Connect(tempEdge);
             _graphView.Add(tempEdge);
+        }
+
+        private void SaveExposedProperties(DialogContainer dialogContainer)
+        {
+            dialogContainer.ExposedProperties.Clear();
+            dialogContainer.ExposedProperties.AddRange(_graphView.ExposedProperties);
         }
 
     }

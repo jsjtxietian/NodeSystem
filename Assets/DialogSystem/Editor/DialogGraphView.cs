@@ -14,7 +14,10 @@ namespace DialogueSystem
     public class DialogGraphView : GraphView
     {
         public readonly Vector2 defaultNodeSize = new Vector2(150, 200);
-        public DialogGraphView()
+        public Blackboard Blackboard = new Blackboard();
+        public List<ExposedProperty> ExposedProperties { get; private set; } = new List<ExposedProperty>();
+        private NodeSearchWindow _searchWindow;
+        public DialogGraphView(DialogGraph editorWindow)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("DialogGraph"));
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale * 2);
@@ -28,6 +31,54 @@ namespace DialogueSystem
             grid.StretchToParentSize();
 
             AddElement(GenerateEntryPointNode());
+            AddSearchWindow(editorWindow);
+        }
+
+        private void AddSearchWindow(DialogGraph editorWindow)
+        {
+            _searchWindow = ScriptableObject.CreateInstance<NodeSearchWindow>();
+            _searchWindow.Configure(editorWindow, this);
+            nodeCreationRequest = context =>
+                SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), _searchWindow);
+        }
+
+        public void ClearBlackBoardAndExposedProperties()
+        {
+            ExposedProperties.Clear();
+            Blackboard.Clear();
+        }
+
+        public void AddPropertyToBlackBoard(ExposedProperty property, bool loadMode = false)
+        {
+            var localPropertyName = property.PropertyName;
+            var localPropertyValue = property.PropertyValue;
+            if (!loadMode)
+            {
+                while (ExposedProperties.Any(x => x.PropertyName == localPropertyName))
+                    localPropertyName = $"{localPropertyName}(1)";
+            }
+
+            var item = ExposedProperty.CreateInstance();
+            item.PropertyName = localPropertyName;
+            item.PropertyValue = localPropertyValue;
+            ExposedProperties.Add(item);
+
+            var container = new VisualElement();
+            var field = new BlackboardField { text = localPropertyName, typeText = "string" };
+            container.Add(field);
+
+            var propertyValueTextField = new TextField("Value:")
+            {
+                value = localPropertyValue
+            };
+            propertyValueTextField.RegisterValueChangedCallback(evt =>
+            {
+                var index = ExposedProperties.FindIndex(x => x.PropertyName == item.PropertyName);
+                ExposedProperties[index].PropertyValue = evt.newValue;
+            });
+            var sa = new BlackboardRow(field, propertyValueTextField);
+            container.Add(sa);
+            Blackboard.Add(container);
         }
 
         public DialogNode CreateDialogNode(string nodeName, Vector2 position)
